@@ -951,7 +951,7 @@ ul li {
 .about-me .bio {
   background: url("../img/bg-4.jpg") no-repeat scroll center center / cover  rgba(0, 0, 0, 0);
   display:block;
-  min-height:550px;
+  min-height:850px;
   margin:0 auto;
   position:relative;
   z-index:2;
@@ -1785,7 +1785,6 @@ button.filter + label {
   position: relative;
 }
 
-
 .contact .sec-divider {
   background:url("../img/icons/mail-icon.svg") no-repeat scroll center center rgba(0,0,0,0);
   display:block;
@@ -1945,7 +1944,6 @@ button.filter + label {
   z-index:2
 }
 
-
 .location ul {
   display:block;
   width:100%;
@@ -2048,5 +2046,7 @@ button.filter + label {
   max-width:inherit!important
 }
 
-
-
+.ul-list li {
+  color: #4c4c50;
+  list-style: disc;
+}

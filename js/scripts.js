@@ -135,7 +135,7 @@ jQuery(document).ready(function($) {
             value: 5,
             color: "#fff"
         }],
-        sass: [{
+        scss: [{
             value: 95,
             color: "#404148"
         }, {
