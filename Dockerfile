@@ -6,8 +6,11 @@ RUN apk add --no-cache nginx msmtp ca-certificates
 # Copy site into document root
 COPY . /var/www/html/
 
-# Copy our nginx config into place
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+# Remove any conf.d snippets (Dokku or base images may include conf.d differently)
+RUN rm -f /etc/nginx/conf.d/*.conf || true
+
+# Copy our full nginx config into place (replaces /etc/nginx/nginx.conf)
+COPY docker/nginx.full.conf /etc/nginx/nginx.conf
 
 # Copy entrypoint script and php msmtp ini (will set sendmail_path)
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
