@@ -3,12 +3,16 @@
 // Configuration: replace this with your own email address
 $siteOwnersEmail = 'juan@timana.net';
 
-// Small security hardening for responses
-header('X-Content-Type-Options: nosniff');
+// Small security hardening for responses (guarded to avoid warnings if headers already sent by BOM)
+if (!headers_sent()) {
+	header('X-Content-Type-Options: nosniff');
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-	http_response_code(405);
-	header('Allow: POST');
+	if (!headers_sent()) {
+		http_response_code(405);
+		header('Allow: POST');
+	}
 	echo 'Method Not Allowed';
 	exit;
 }
@@ -75,7 +79,9 @@ $sent = @mail($siteOwnersEmail, $subject, $body, implode("\r\n", $headers));
 if ($sent) {
 	echo 'OK';
 } else {
-	http_response_code(500);
+	if (!headers_sent()) {
+		http_response_code(500);
+	}
 	echo 'Something went wrong. Please try again.';
 }
 
