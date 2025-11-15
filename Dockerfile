@@ -7,7 +7,7 @@ RUN apk add --no-cache nginx msmtp ca-certificates
 COPY . /var/www/html/
 
 # Remove any conf.d snippets (Dokku or base images may include conf.d differently)
-RUN rm -f /etc/nginx/conf.d/*.conf || true
+RUN rm -f /etc/nginx/conf.d/*.conf
 
 # Copy our full nginx config into place (replaces /etc/nginx/nginx.conf)
 COPY docker/nginx.full.conf /etc/nginx/nginx.conf
