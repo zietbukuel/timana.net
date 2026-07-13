@@ -1,25 +1,25 @@
 // Preloader
 
-  $(window).load(function(){
-        $('.loader').fadeOut();
-        $('#preloader').delay(350).fadeOut('slow');
-        $('body').delay(350);
+$(window).load(function () {
+    $('.loader').fadeOut();
+    $('#preloader').delay(350).fadeOut('slow');
+    $('body').delay(350);
 
-    });
+});
 
 // Global document ready function
 
-jQuery(document).ready(function($) {
-     // "use strict";
+jQuery(document).ready(function ($) {
+    // "use strict";
     //check if background-images have been loaded and show single pages
     $('.single-page').bgLoaded({
-        afterLoaded: function() {
+        afterLoaded: function () {
             showCaption($('.page-container .single-page').eq(0));
         }
     });
 
     //open page
-    $('.single-page').on('click', function(e) {
+    $('.single-page').on('click', function (e) {
         e.preventDefault();
         var selectedProject = $(this),
             toggle = !selectedProject.hasClass('is-full-width');
@@ -28,14 +28,14 @@ jQuery(document).ready(function($) {
     });
 
     //close page
-    $('.page-container .page-close').on('click', function(e) {
+    $('.page-container .page-close').on('click', function (e) {
         e.preventDefault();
         toggleProject($('.is-full-width'), $('.page-container'), false);
 
     });
 
     //scroll to page info
-    $('.page-container .page-scroll').on('click', function(e) {
+    $('.page-container .page-scroll').on('click', function (e) {
         e.preventDefault();
         $('.page-container').animate({
             'scrollTop': $(window).height()
@@ -43,7 +43,7 @@ jQuery(document).ready(function($) {
     });
 
     //update title and .page-scroll opacity while scrolling
-    $('.page-container').on('scroll', function() {
+    $('.page-container').on('scroll', function () {
         window.requestAnimationFrame(changeOpacity);
     });
 
@@ -61,13 +61,13 @@ jQuery(document).ready(function($) {
             //fade out page
             project.animate({
                 opacity: 0
-            }, 800, function() {
+            }, 800, function () {
                 project.removeClass('is-loaded');
                 $('.page-container').find('.page-scroll').attr('style', '');
-                setTimeout(function() {
+                setTimeout(function () {
                     project.attr('style', '').removeClass('is-full-width').find('.page-title').attr('style', '');
                 }, delay);
-                setTimeout(function() {
+                setTimeout(function () {
                     showCaption($('.page-container .single-page').eq(0));
                 }, 300);
             });
@@ -82,7 +82,7 @@ jQuery(document).ready(function($) {
 
     function showCaption(project) {
         if (project.length > 0) {
-            setTimeout(function() {
+            setTimeout(function () {
                 project.addClass('is-loaded');
                 showCaption(project.next());
             }, 150);
@@ -197,11 +197,11 @@ jQuery(document).ready(function($) {
     };
 
     var offset = 0;
-    $.each(data, function(key, data) {
+    $.each(data, function (key, data) {
         var canvas = document.querySelector('#' + key);
         if (canvas) {
             offset += 250;
-            setTimeout(function() {
+            setTimeout(function () {
                 var ctx = canvas.getContext('2d');
                 var chart = new Chart(ctx);
                 chart.Doughnut(data, options);
@@ -210,38 +210,40 @@ jQuery(document).ready(function($) {
     });
 
 
-    // Google Map
+    // OpenStreetMap via Leaflet
+    if ($('#map').length > 0) {
+        map = L.map('map', {
+            center: [-12.071483, -76.956762],
+            zoom: 13,
+            scrollWheelZoom: false
+        });
 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-    // main directions
-    map = new GMaps({
-        position: "TOP_CENTER",
-        el: '#map',
-        lat: 23.790223,
-        lng: 90.414036,
-        zoom: 13,
-        zoomControl: true,
-        zoomControlOpt: {
-            style: 'SMALL',
-            position: 'TOP_LEFT'
-        },
-        panControl: false,
-        scrollwheel: false
-    });
-    // add address markers
-    map.addMarker({
-        lat: 23.790223,
-        lng: 90.414036,
-        title: 'Codetic',
-        infoWindow: {
-            content: '<p> Mirpur , Dhaka</p>'
-        }
-    });
+        var myIcon = L.divIcon({
+            html: `
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="#ff4b5c"/>
+                </svg>
+            `,
+            className: 'custom-leaflet-marker',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
+
+        L.marker([-12.071483, -76.956762], { icon: myIcon }).addTo(map)
+            .bindPopup('<b>Juan Timaná</b><br>Lima , Perú')
+            .openPopup();
+    }
+
 
 
     // Contact Form
 
-    $('form#contactForm button.submit').click(function() {
+    $('form#contactForm button.submit').click(function () {
 
         $('#image-loader').fadeIn();
 
@@ -256,7 +258,7 @@ jQuery(document).ready(function($) {
             type: "POST",
             url: "inc/sendEmail.php",
             data: data,
-            success: function(msg) {
+            success: function (msg) {
 
                 // Message was sent
                 if (msg == 'OK') {
@@ -288,13 +290,13 @@ jQuery(document).ready(function($) {
  * Copyright (c) 2014 Jonathan Catmull
  * Licensed under the MIT license.
  */
-(function($) {
-    $.fn.bgLoaded = function(custom) {
+(function ($) {
+    $.fn.bgLoaded = function (custom) {
         var self = this;
 
         // Default plugin settings
         var defaults = {
-            afterLoaded: function() {
+            afterLoaded: function () {
                 this.addClass('bg-loaded');
             }
         };
@@ -303,13 +305,13 @@ jQuery(document).ready(function($) {
         var settings = $.extend({}, defaults, custom);
 
         // Loop through element
-        self.each(function() {
+        self.each(function () {
             var $this = $(this),
                 bgImgs = window.getComputedStyle($this.get(0), '::before').getPropertyValue('content').replace(/'/g, "").replace(/"/g, "").split(', ');
             $this.data('loaded-count', 0);
-            $.each(bgImgs, function(key, value) {
+            $.each(bgImgs, function (key, value) {
                 var img = value.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-                $('<img/>').attr('src', img).load(function() {
+                $('<img/>').attr('src', img).load(function () {
                     $(this).remove(); // prevent memory leaks
                     $this.data('loaded-count', $this.data('loaded-count') + 1);
                     if ($this.data('loaded-count') >= bgImgs.length) {

@@ -1,34 +1,10 @@
-FROM php:8.2-fpm-alpine
+FROM shinsenter/php:8.4-fpm-nginx
 
-# Install nginx and msmtp (lightweight SMTP client) and ca-certificates
-RUN apk add --no-cache nginx msmtp ca-certificates
+# Copy site into document root with correct ownership
+COPY --chown=www-data:www-data . /var/www/html
 
-# Copy site into document root
-COPY . /var/www/html/
-
-# Remove any conf.d snippets (Dokku or base images may include conf.d differently)
-RUN rm -f /etc/nginx/conf.d/*.conf
-
-# Copy our full nginx config into place (replaces /etc/nginx/nginx.conf)
-COPY docker/nginx.full.conf /etc/nginx/nginx.conf
-
-# Copy entrypoint script and php msmtp ini (will set sendmail_path)
-COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-COPY docker/msmtp.ini /usr/local/etc/php/conf.d/msmtp.ini
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-# Create run dir and set permissions for the web root
-RUN mkdir -p /run/nginx \
-	&& chown -R www-data:www-data /var/www/html \
-	&& find /var/www/html -type d -exec chmod 755 {} \; \
-	&& find /var/www/html -type f -exec chmod 644 {} \;
-
-# NOTE: PHP's mail() will use msmtp configured at container start. The entrypoint
-# script writes /etc/msmtprc from environment variables (SMTP_HOST, SMTP_PORT,
-# SMTP_USER, SMTP_PASS, SMTP_FROM). If not provided, PHP mail() will likely fail to deliver.
+# Configure PHP's sendmail path to use msmtp with the system config at /etc/msmtprc
+RUN echo 'sendmail_path = "/usr/bin/msmtp -C /etc/msmtprc --logfile /var/log/msmtp.log -a default -t"' > /usr/local/etc/php/conf.d/msmtp.ini
 
 EXPOSE 80
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-# Start php-fpm (daemonize) then run nginx in foreground so container stays up
-CMD ["sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"]
