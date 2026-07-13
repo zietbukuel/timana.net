@@ -280,10 +280,39 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
+    // IntersectionObserver Lazy Loading
+    if ('IntersectionObserver' in window) {
+        var lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var lazyImage = entry.target;
+                    lazyImage.src = lazyImage.dataset.src;
+                    lazyImage.onload = function() {
+                        lazyImage.classList.add('lazy-loaded');
+                    };
+                    lazyImageObserver.unobserve(lazyImage);
+                }
+            });
+        }, {
+            rootMargin: '100px'
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(function(lazyImage) {
+            lazyImageObserver.observe(lazyImage);
+        });
+    } else {
+        // Fallback for older browsers
+        document.querySelectorAll('img[data-src]').forEach(function(lazyImage) {
+            lazyImage.src = lazyImage.dataset.src;
+            lazyImage.classList.add('lazy-loaded');
+        });
+    }
+
     // Contact form end
 
 
 });
+
 
 /*
  * BG Loaded

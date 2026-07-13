@@ -2076,3 +2076,19 @@ button.filter+label {
   color: #4c4c50;
   list-style: disc;
 }
+
+/* image lazy loading */
+img[data-src] {
+  opacity: 0;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+img[data-src].lazy-loaded {
+  opacity: 1;
+}
+
+.portfolio-items figure img[data-src].lazy-loaded {
+  opacity: 0.8;
+}
