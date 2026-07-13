@@ -19,7 +19,8 @@ jQuery(document).ready(function($) {
     });
 
     //open page
-    $('.single-page').on('click', function() {
+    $('.single-page').on('click', function(e) {
+        e.preventDefault();
         var selectedProject = $(this),
             toggle = !selectedProject.hasClass('is-full-width');
         if (toggle) toggleProject($(this), $('.page-container'), toggle);
@@ -27,13 +28,15 @@ jQuery(document).ready(function($) {
     });
 
     //close page
-    $('.page-container .page-close').on('click', function() {
+    $('.page-container .page-close').on('click', function(e) {
+        e.preventDefault();
         toggleProject($('.is-full-width'), $('.page-container'), false);
 
     });
 
     //scroll to page info
-    $('.page-container .page-scroll').on('click', function() {
+    $('.page-container .page-scroll').on('click', function(e) {
+        e.preventDefault();
         $('.page-container').animate({
             'scrollTop': $(window).height()
         }, 500);
@@ -122,73 +125,73 @@ jQuery(document).ready(function($) {
     var options = {
         //segmentShowStroke: false,
         percentageInnerCutout: 70,
-        //animation: true,
+        animation: true,
         animationEasing: 'easeOutQuint',
         //animateRotate: false,
         animateScale: true
     };
     var data = {
-        html_css: [{
+        skill_frontend: [{
+            value: 90,
+            color: "#404148"
+        }, {
+            value: 10,
+            color: "#fff"
+        }],
+        skill_scss: [{
             value: 95,
             color: "#404148"
         }, {
             value: 5,
             color: "#fff"
         }],
-        scss: [{
+        skill_js: [{
+            value: 90,
+            color: "#404148"
+        }, {
+            value: 10,
+            color: "#fff"
+        }],
+        skill_php: [{
+            value: 90,
+            color: "#404148"
+        }, {
+            value: 10,
+            color: "#fff"
+        }],
+        skill_drupal: [{
             value: 95,
             color: "#404148"
         }, {
             value: 5,
             color: "#fff"
         }],
-        jquery: [{
-            value: 90,
+        skill_wordpress: [{
+            value: 95,
             color: "#404148"
         }, {
-            value: 10,
+            value: 5,
             color: "#fff"
         }],
-        php: [{
-            value: 90,
-            color: "#404148"
-        }, {
-            value: 10,
-            color: "#fff"
-        }],
-        drupal: [{
-            value: 90,
-            color: "#404148"
-        }, {
-            value: 10,
-            color: "#fff"
-        }],
-        wordpress: [{
-            value: 90,
-            color: "#404148"
-        }, {
-            value: 10,
-            color: "#fff"
-        }],
-        laravel: [{
-            value: 80,
-            color: "#404148"
-        }, {
-            value: 20,
-            color: "#fff"
-        }],
-        phalconphp: [{
-            value: 70,
-            color: "#404148"
-        }, {
-            value: 30,
-            color: "#fff"
-        }],
-        linux: [{
+        skill_laravel: [{
             value: 85,
             color: "#404148"
         }, {
             value: 15,
+            color: "#fff"
+        }],
+        skill_devops: [{
+            value: 90,
+            color: "#404148"
+        }, {
+            value: 10,
+            color: "#fff"
+        }],
+        skill_linux: [{
+            value: 95,
+            color: "#404148"
+        }, {
+            value: 5,
             color: "#fff"
         }]
     };
