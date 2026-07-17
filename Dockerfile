@@ -6,6 +6,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+RUN echo "BUILD_ARG SITE_URL is: $SITE_URL"
 RUN npm run build
 
 # Stage 2: Serve the application with PHP & Nginx
