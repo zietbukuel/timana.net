@@ -43,14 +43,40 @@ const testimonialsRaw = await getCollection("testimonials");
 const skillsRaw = await getCollection("skills");
 const recognitionRaw = await getCollection("recognition");
 
+import { getImage } from 'astro:assets';
+
+// Optimize and convert base images to WebP
+const optimizedMe = await getImage({ src: meImage, format: 'webp' });
+const optimizedFunBg = await getImage({ src: funBgImage, format: 'webp' });
+const optimizedBg2 = await getImage({ src: bg2Image, format: 'webp' });
+const optimizedBg4 = await getImage({ src: bg4Image, format: 'webp' });
+
+// Optimize and convert Parallax images to WebP (limit small versions to 640px wide)
+const optImg1Small = await getImage({ src: img1Small, format: 'webp', width: 640 });
+const optImg1Large = await getImage({ src: img1Large, format: 'webp' });
+const optImg2Small = await getImage({ src: img2Small, format: 'webp', width: 640 });
+const optImg2Large = await getImage({ src: img2Large, format: 'webp' });
+const optImg3Small = await getImage({ src: img3Small, format: 'webp', width: 640 });
+const optImg3Large = await getImage({ src: img3Large, format: 'webp' });
+const optImg4Small = await getImage({ src: img4Small, format: 'webp', width: 640 });
+const optImg4Large = await getImage({ src: img4Large, format: 'webp' });
+
 const projectCategories = projectCategoriesRaw.map((c) => c.data);
-const projects = projectsRaw
-  .map((p) => ({
-    ...p.data,
-    thumb: p.data.thumb.src,
-    large: p.data.large.src
-  }))
-  .sort((a, b) => a.order - b.order);
+
+// Optimize project images to WebP dynamically
+const projects = await Promise.all(
+  projectsRaw.map(async (p) => {
+    const optimizedThumb = await getImage({ src: p.data.thumb, format: 'webp', width: 600 });
+    const optimizedLarge = await getImage({ src: p.data.large, format: 'webp' });
+    return {
+      ...p.data,
+      thumb: optimizedThumb.src,
+      large: optimizedLarge.src
+    };
+  })
+);
+projects.sort((a, b) => a.order - b.order);
+
 const education = educationRaw
   .map((e) => e.data)
   .sort((a, b) => a.order - b.order);
@@ -188,15 +214,15 @@ const recognition = recognitionRaw
         testimonials={testimonials}
         skills={skills}
         recognition={recognition}
-        meImage={meImage.src}
-        funBgImage={funBgImage.src}
-        bg2Image={bg2Image.src}
-        bg4Image={bg4Image.src}
+        meImage={optimizedMe.src}
+        funBgImage={optimizedFunBg.src}
+        bg2Image={optimizedBg2.src}
+        bg4Image={optimizedBg4.src}
         panelImages={{
-          profile: { small: img1Small.src, large: img1Large.src },
-          resume: { small: img2Small.src, large: img2Large.src },
-          portfolio: { small: img3Small.src, large: img3Large.src },
-          contact: { small: img4Small.src, large: img4Large.src }
+          profile: { small: optImg1Small.src, large: optImg1Large.src },
+          resume: { small: optImg2Small.src, large: optImg2Large.src },
+          portfolio: { small: optImg3Small.src, large: optImg3Large.src },
+          contact: { small: optImg4Small.src, large: optImg4Large.src }
         }}
         client:load 
       />
