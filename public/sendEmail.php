@@ -1,9 +1,7 @@
 ﻿<?php
 
-// Configuration: replace this with your own email address
 $siteOwnersEmail = 'juan@timana.net';
 
-// Small security hardening for responses (guarded to avoid warnings if headers already sent by BOM)
 if (!headers_sent()) {
 	header('X-Content-Type-Options: nosniff');
 }
