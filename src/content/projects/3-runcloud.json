@@ -1,0 +1,18 @@
+{
+  "id": 3,
+  "categories": [
+    "category-2",
+    "category-4"
+  ],
+  "part1": "Runcloud",
+  "part2": "Integration",
+  "isPart1Bold": false,
+  "subtitle": "Runcloud Infrastructure Automation Bridge",
+  "thumb": "/img/portfolio/thumb/project_runcloud_thumb.jpg",
+  "large": "/img/portfolio/project_runcloud.jpg",
+  "desc": "A comprehensive system integration layer consisting of custom PHP libraries and a developer CLI tool. It acts as an automated, programmatic bridge between enterprise CMS platforms (WordPress/Drupal) and core hosting infrastructure via the Runcloud API.",
+  "tech": "Built to give development teams direct control over server provisioning, automated staging site management, database replication, and system configurations directly from their development environments, eliminating manual server configuration bottlenecks.",
+  "url": null,
+  "urlText": null,
+  "order": 3
+}

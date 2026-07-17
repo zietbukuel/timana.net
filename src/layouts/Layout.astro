@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import PageContainer from '../components/PageContainer';
+import { getCollection } from 'astro:content';
 
 interface Props {
   initialActivePanel?: string | null;
@@ -14,6 +15,23 @@ const canonicalURL = new URL(cleanPath, Astro.site);
 
 const siteURL = Astro.site ? Astro.site.href : 'https://timana.net/';
 const profileImageURL = new URL('/img/me.jpg', siteURL).href;
+
+// Retrieve all collections
+const projectCategoriesRaw = await getCollection('projectCategories');
+const projectsRaw = await getCollection('projects');
+const educationRaw = await getCollection('education');
+const employmentRaw = await getCollection('employment');
+const testimonialsRaw = await getCollection('testimonials');
+const skillsRaw = await getCollection('skills');
+const recognitionRaw = await getCollection('recognition');
+
+const projectCategories = projectCategoriesRaw.map(c => c.data);
+const projects = projectsRaw.map(p => p.data).sort((a, b) => a.order - b.order);
+const education = educationRaw.map(e => e.data).sort((a, b) => a.order - b.order);
+const employment = employmentRaw.map(e => e.data).sort((a, b) => a.order - b.order);
+const testimonials = testimonialsRaw.map(t => t.data).sort((a, b) => a.order - b.order);
+const skills = skillsRaw.map(s => s.data).sort((a, b) => a.order - b.order);
+const recognition = recognitionRaw.map(r => r.data).sort((a, b) => a.order - b.order);
 ---
 
 <!doctype html>
@@ -104,7 +122,17 @@ const profileImageURL = new URL('/img/me.jpg', siteURL).href;
   <body>
     <h1 class="sr-only">Juan Timaná | Senior Full Stack Web Developer & Systems Engineer Portfolio</h1>
     <main>
-      <PageContainer initialActivePanel={initialActivePanel} client:load />
+      <PageContainer 
+        initialActivePanel={initialActivePanel} 
+        projectCategories={projectCategories}
+        projects={projects}
+        education={education}
+        employment={employment}
+        testimonials={testimonials}
+        skills={skills}
+        recognition={recognition}
+        client:load 
+      />
     </main>
   </body>
 </html>

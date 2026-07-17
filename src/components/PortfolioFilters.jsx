@@ -1,14 +1,6 @@
 import React from 'react';
 
-const filterCategories = [
-  { id: 'all', label: 'All' },
-  { id: 'category-1', label: 'Web Architecture' },
-  { id: 'category-2', label: 'Full-Stack Apps' },
-  { id: 'category-3', label: 'Open Source' },
-  { id: 'category-4', label: 'DevOps & Infra' }
-];
-
-export default function PortfolioFilters({ activeFilter, onFilterChange }) {
+export default function PortfolioFilters({ activeFilter, onFilterChange, filterCategories = [] }) {
   return (
     <div className="flex flex-wrap justify-center gap-1.5 mb-12 relative z-10 px-4">
       {filterCategories.map((cat) => (

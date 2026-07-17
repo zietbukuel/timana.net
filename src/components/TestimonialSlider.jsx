@@ -1,21 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const testimonials = [
-  {
-    quote: "I'm grateful for collaborating with Juan on my web store. His expertise and dedication resulted in a remarkable shopping experience that exceeded my expectations. Juan's exceptional design skills and professionalism set him apart. I'm thrilled with the final outcome and highly recommend him for top-notch web development services.",
-    author: "Jorge Quezada"
-  },
-  {
-    quote: "I am thrilled with the custom web app created by Juan. His technical expertise and attention to detail resulted in an efficient and tailored solution for my business. From understanding my requirements to delivering a user-friendly interface, Juan showcased professionalism and commitment throughout the process. I highly recommend his services to anyone seeking a skilled web developer.",
-    author: "Xavier Palma"
-  },
-  {
-    quote: "Working with Juan to create my WordPress site has been a pleasure. His expertise and attention to detail have exceeded my expectations. The seamless functionality and captivating design truly showcase Juan's talent. His professionalism and dedication to delivering exceptional results are evident throughout the process. I highly recommend Juan for anyone in need of a skilled WordPress developer.",
-    author: "Alice Cosmetic Ink Perú"
-  }
-];
-
-export default function TestimonialSlider() {
+export default function TestimonialSlider({ testimonials = [] }) {
   const [current, setCurrent] = useState(0);
   const [dragShift, setDragShift] = useState(0);
   const [isDraggingState, setIsDraggingState] = useState(false);

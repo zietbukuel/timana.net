@@ -1,0 +1,17 @@
+{
+  "id": 0,
+  "categories": [
+    "category-2"
+  ],
+  "part1": "Codexa",
+  "part2": "Express",
+  "isPart1Bold": true,
+  "subtitle": "Proprietary SaaS Architecture",
+  "thumb": "/img/portfolio/thumb/project_codexa_thumb.jpg",
+  "large": "/img/portfolio/project_codexa.jpg",
+  "desc": "Architected and engineered the entire full-stack layout for a scalable, multi-tenant Software-as-a-Service platform from inception. The core engineering challenge was designing a robust backend architecture capable of isolation and handling heavy, concurrent database loads without impacting performance or site reliability.",
+  "tech": "Built utilizing high-performance backend frameworks, secure RESTful APIs, and optimized database indexing. I provisioned and hardened the bare-metal and virtualized production servers, configuring reverse proxies, automated patch management, and automated deployment pipelines to maximize uptime.",
+  "url": "https://codexa.pe",
+  "urlText": "See Live",
+  "order": 0
+}

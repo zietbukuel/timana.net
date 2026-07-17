@@ -1,0 +1,7 @@
+{
+  "company": "iMailUnlimited, LLC",
+  "role": "Junior Systems Administrator & Developer",
+  "period": "Jan 2012 - Apr 2014",
+  "description": "Engineered a custom automated deployment application using PHP and CodeIgniter to orchestrate infrastructure provisioning, leveraging SSH bridges to automatically spin up Linux Containers (LXC) and deploy high-volume PowerMTA environments. Managed the end-to-end administration, configuration, and optimization of enterprise SMTP servers tailored for mass email marketing, while developing custom API integrations and frontend email templates to ensure deliverability and platform reliability.",
+  "order": 5
+}

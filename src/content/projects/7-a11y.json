@@ -1,0 +1,17 @@
+{
+  "id": 7,
+  "categories": [
+    "category-3"
+  ],
+  "part1": "A11y",
+  "part2": "Shield",
+  "isPart1Bold": false,
+  "subtitle": "Accessibility scanner for Wordpress websites",
+  "thumb": "/img/portfolio/thumb/project_a11yshield_thumb.jpg",
+  "large": "/img/portfolio/project_a11yshield.jpg",
+  "desc": "An experimental, lightweight WordPress plugin designed to dynamically detect and shield websites from front-end accessibility violations. Instead of relying on heavy third-party overlays that degrade performance, a11y-shield works at the core level to sanitize and correct output markup, helping sites meet strict WCAG and ADA compliance standards without sacrificing site speed.",
+  "tech": "Built to dynamically scan and repair contrast, labels, and aria attributes during output generation, providing a fast and clean solution.",
+  "url": "https://github.com/zietbukuel/a11y-shield",
+  "urlText": "View GitHub Repository",
+  "order": 7
+}

@@ -50,7 +50,26 @@ const panels = [
 
 const tabPaths = ['profile', 'resume', 'portfolio', 'contact'];
 
-export default function PageContainer({ initialActivePanel }) {
+export default function PageContainer({
+  initialActivePanel,
+  projectCategories = [],
+  projects = [],
+  education = [],
+  employment = [],
+  testimonials = [],
+  skills = [],
+  recognition = []
+}) {
+  const getPanelProps = (component) => {
+    if (component === ResumeSection) {
+      return { education, employment, skills, recognition };
+    }
+    if (component === PortfolioSection) {
+      return { projectCategories, projects, testimonials };
+    }
+    return {};
+  };
+
   const initialIndex = initialActivePanel ? tabPaths.indexOf(initialActivePanel.toLowerCase()) : -1;
   const [activeTab, setActiveTab] = useState(initialIndex !== -1 ? initialIndex : null);
   const [isLoaded, setIsLoaded] = useState(initialIndex !== -1 ? true : false);
@@ -288,7 +307,7 @@ export default function PageContainer({ initialActivePanel }) {
                   <div className="w-full h-screen pointer-events-none" />
                   {/* Real content */}
                   <div className="relative z-10 bg-[#f2f2f2] shadow-[0_-20px_50px_rgba(0,0,0,0.15)] border-t border-[#ddd]">
-                    <panel.Component />
+                    <panel.Component {...getPanelProps(panel.Component)} />
                   </div>
                 </div>
               )}

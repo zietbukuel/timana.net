@@ -5,122 +5,7 @@ import FunFactsSection from './FunFactsSection';
 import Footer from './Footer';
 import PortfolioFilters from './PortfolioFilters';
 
-const portfolioItems = [
-  {
-    id: 0,
-    categories: ['category-2'],
-    part1: 'Codexa',
-    part2: 'Express',
-    isPart1Bold: true,
-    subtitle: 'Proprietary SaaS Architecture',
-    thumb: '/img/portfolio/thumb/project_codexa_thumb.jpg',
-    large: '/img/portfolio/project_codexa.jpg',
-    desc: 'Architected and engineered the entire full-stack layout for a scalable, multi-tenant Software-as-a-Service platform from inception. The core engineering challenge was designing a robust backend architecture capable of isolation and handling heavy, concurrent database loads without impacting performance or site reliability.',
-    tech: 'Built utilizing high-performance backend frameworks, secure RESTful APIs, and optimized database indexing. I provisioned and hardened the bare-metal and virtualized production servers, configuring reverse proxies, automated patch management, and automated deployment pipelines to maximize uptime.',
-    url: 'https://codexa.pe',
-    urlText: 'See Live'
-  },
-  {
-    id: 1,
-    categories: ['category-1'],
-    part1: 'Alice',
-    part2: 'Cosmetic Ink',
-    isPart1Bold: true,
-    subtitle: 'Cosmetic Ink Store',
-    thumb: '/img/portfolio/thumb/project_alice_thumb.jpg',
-    large: '/img/portfolio/project_alice.jpg',
-    desc: 'A custom e-commerce solution built natively on Laravel tailored specifically for the Peruvian market constraints. Unlike traditional bloated e-commerce systems, this platform features an optimized, hyper-simplified checkout workflow designed to maximize conversion rates by stripping out unnecessary multi-step friction.',
-    tech: 'Engineered using a clean repository pattern in Laravel, focusing on lightweight database queries and direct payment gateway integrations. While active business rollout is currently on hold, the core transactional architecture and database layers are fully functional.',
-    url: null,
-    urlText: null
-  },
-  {
-    id: 2,
-    categories: ['category-1'],
-    part1: 'Nagata',
-    part2: 'Racing',
-    isPart1Bold: true,
-    subtitle: 'Racing Team',
-    thumb: '/img/portfolio/thumb/project_nagata_thumb.jpg',
-    large: '/img/portfolio/project_nagata.jpg',
-    desc: 'The complete web architecture and data hub for an automotive performance organization. Built to handle heavy localized traffic spikes during event rollouts, focusing on rendering speeds and reliable caching setups.',
-    tech: 'Implemented a mobile-first responsive frontend tightly coupled with a highly optimized backend CMS layout. The site serves as the primary digital touchpoint for community orchestration, media delivery, and brand alignment.',
-    url: 'https://nagataracing.com',
-    urlText: 'See Live'
-  },
-  {
-    id: 3,
-    categories: ['category-2', 'category-4'],
-    part1: 'Runcloud',
-    part2: 'Integration',
-    isPart1Bold: false,
-    subtitle: 'Runcloud Infrastructure Automation Bridge',
-    thumb: '/img/portfolio/thumb/project_runcloud_thumb.jpg',
-    large: '/img/portfolio/project_runcloud.jpg',
-    desc: 'A comprehensive system integration layer consisting of custom PHP libraries and a developer CLI tool. It acts as an automated, programmatic bridge between enterprise CMS platforms (WordPress/Drupal) and core hosting infrastructure via the Runcloud API.',
-    tech: 'Built to give development teams direct control over server provisioning, automated staging site management, database replication, and system configurations directly from their development environments, eliminating manual server configuration bottlenecks.',
-    url: null,
-    urlText: null
-  },
-  {
-    id: 4,
-    categories: ['category-3'],
-    part1: 'Open Source',
-    part2: 'WordPress Starter Framework',
-    isPart1Bold: true,
-    subtitle: 'Open Source Software',
-    thumb: '/img/portfolio/thumb/project_wptheme_thumb.jpg',
-    large: '/img/portfolio/project_wptheme.jpg',
-    desc: 'A completely sanitized, production-ready development framework published under the GPL license. Built independently to act as a highly optimized boilerplate utility to maximize scaffolding velocity while maintaining rigid engineering standards.',
-    tech: 'Features strict data escaping protocols, a highly modular registry system for native Advanced Custom Fields (ACF) blocks, clean BEM-compliant styling architecture, and an automated shell script to instantly handle project re-namespacing.',
-    url: 'https://github.com/zietbukuel/boilerplate-theme',
-    urlText: 'View GitHub Repository'
-  },
-  {
-    id: 5,
-    categories: ['category-2', 'category-3', 'category-4'],
-    part1: 'SSH',
-    part2: 'Config Manager CLI Tool',
-    isPart1Bold: true,
-    subtitle: 'CLI Utility',
-    thumb: '/img/portfolio/thumb/project_sshmngr_thumb.jpg',
-    large: '/img/portfolio/project_sshmngr.jpg',
-    desc: 'A lightweight, practical Python command-line utility engineered to solve a personal bottleneck: managing complex, expanding SSH configuration files across dozens of distinct client staging and production servers.',
-    tech: 'Built with a focus on simplicity and rapid execution, this tool automates the validation, organization, and parsing of localized SSH configurations. It proves that simple, focused automation is always better than manual configuration management.',
-    url: 'https://github.com/zietbukuel/ssh-config-manager',
-    urlText: 'View GitHub Repository'
-  },
-  {
-    id: 6,
-    categories: ['category-4'],
-    part1: 'Ansible',
-    part2: 'Playbooks',
-    isPart1Bold: false,
-    subtitle: 'Automated Bare-Metal Deployment Infrastructure',
-    thumb: '/img/portfolio/thumb/project_ansible_thumb.jpg',
-    large: '/img/portfolio/project_ansible.jpg',
-    desc: 'A personal suite of custom Ansible playbooks built independently to automate the provisioning, security hardening, and deployment management of virtualized and bare-metal Linux servers.',
-    tech: 'Automates the entire process of deploying clean server stacks, configuring secure reverse proxies, setting up automated patch management, and maintaining isolated configurations across development, staging, and live production pipelines.',
-    url: 'https://github.com/zietbukuel/ansible-playbooks',
-    urlText: 'View GitHub Repository'
-  },
-  {
-    id: 7,
-    categories: ['category-3'],
-    part1: 'A11y',
-    part2: 'Shield',
-    isPart1Bold: false,
-    subtitle: 'Accessibility scanner for Wordpress websites',
-    thumb: '/img/portfolio/thumb/project_a11yshield_thumb.jpg',
-    large: '/img/portfolio/project_a11yshield.jpg',
-    desc: 'An experimental, lightweight WordPress plugin designed to dynamically detect and shield websites from front-end accessibility violations. Instead of relying on heavy third-party overlays that degrade performance, a11y-shield works at the core level to sanitize and correct output markup, helping sites meet strict WCAG and ADA compliance standards without sacrificing site speed.',
-    tech: 'Built to dynamically scan and repair contrast, labels, and aria attributes during output generation, providing a fast and clean solution.',
-    url: 'https://github.com/zietbukuel/a11y-shield',
-    urlText: 'View GitHub Repository'
-  }
-];
-
-export default function PortfolioSection() {
+export default function PortfolioSection({ projectCategories = [], projects = [], testimonials = [] }) {
   const [filter, setFilter] = useState('all');
   const [displayedFilter, setDisplayedFilter] = useState('all');
   const [activeProject, setActiveProject] = useState(null);
@@ -138,8 +23,8 @@ export default function PortfolioSection() {
   };
 
   const filteredItems = displayedFilter === 'all'
-    ? portfolioItems
-    : portfolioItems.filter(item => item.categories.includes(displayedFilter));
+    ? projects
+    : projects.filter(item => item.categories.includes(displayedFilter));
 
   return (
     <div className="w-full select-text flex flex-col items-center">
@@ -147,7 +32,7 @@ export default function PortfolioSection() {
       <section className="w-full bg-[#f9f9f9] py-12 md:py-16 flex flex-col items-center">
 
         {/* Category filters using flat sharp buttons */}
-        <PortfolioFilters activeFilter={filter} onFilterChange={handleFilterChange} />
+        <PortfolioFilters activeFilter={filter} onFilterChange={handleFilterChange} filterCategories={projectCategories} />
 
         {/* WIDER Grid Items (w-full) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 w-11/12 md:w-[80%] mx-auto relative z-10">
@@ -207,7 +92,7 @@ export default function PortfolioSection() {
           Some of my happy clients
         </h2>
         <div className="relative z-10 w-full">
-          <TestimonialSlider />
+          <TestimonialSlider testimonials={testimonials} />
         </div>
       </section>
 
