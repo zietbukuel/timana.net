@@ -24,3 +24,28 @@ The base image has `msmtp` pre-installed. To configure the system to send emails
 | `SMTP_AUTH` | Enable SMTP authentication (set to `on` or `off`; default is `on`). |
 
 These variables will be parsed automatically at container start to configure msmtp.
+
+## Local Development with DDEV
+
+This project is configured to use **DDEV** for local environment orchestration.
+
+### Environment Variable Configuration (`SITE_URL`)
+The project dynamically resolves the canonical SEO URL during compilation based on the `SITE_URL` environment variable:
+- It is set locally in `.ddev/.env` (e.g., `SITE_URL="https://prws.ddev.site"`).
+- It is exposed to the container environment via `.ddev/config.yaml` under the `web_environment` setting.
+
+### Compiling Assets inside DDEV
+Since Astro requires Node.js `>=22.12.0`, you should build assets inside DDEV where Node v22 is configured:
+
+1. **Build inside the container**:
+   ```bash
+   ddev npm run build
+   ```
+   This automatically injects the container's `SITE_URL` and outputs pre-rendered canonical tags matching `https://prws.ddev.site/`.
+
+2. **Build on host (with manual override)**:
+   If building on your host machine outside the container, pass the variable inline:
+   ```bash
+   SITE_URL=https://prws.ddev.site npm run build
+   ```
+   *(Note: If no `SITE_URL` environment variable is provided, the build defaults to `http://localhost`).*

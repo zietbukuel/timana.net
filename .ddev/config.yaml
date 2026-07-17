@@ -15,8 +15,9 @@ nfs_mount_enabled: false
 mutagen_enabled: false
 use_dns_when_possible: true
 composer_version: "2"
-web_environment: []
-nodejs_version: "16"
+web_environment:
+    - SITE_URL=${SITE_URL}
+nodejs_version: "22"
 
 # Key features of ddev's config.yaml:
 

@@ -48,10 +48,18 @@ const panels = [
   }
 ];
 
-export default function PageContainer() {
-  const [activeTab, setActiveTab] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [loadedPanels, setLoadedPanels] = useState([false, false, false, false]);
+const tabPaths = ['profile', 'resume', 'portfolio', 'contact'];
+
+export default function PageContainer({ initialActivePanel }) {
+  const initialIndex = initialActivePanel ? tabPaths.indexOf(initialActivePanel.toLowerCase()) : -1;
+  const [activeTab, setActiveTab] = useState(initialIndex !== -1 ? initialIndex : null);
+  const [isLoaded, setIsLoaded] = useState(initialIndex !== -1 ? true : false);
+  const [loadedPanels, setLoadedPanels] = useState([
+    initialIndex !== -1 ? true : false,
+    initialIndex !== -1 ? true : false,
+    initialIndex !== -1 ? true : false,
+    initialIndex !== -1 ? true : false
+  ]);
   const [scrollOpacity, setScrollOpacity] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -65,8 +73,17 @@ export default function PageContainer() {
     return () => media.removeEventListener('change', listener);
   }, []);
 
+  // Sync loaded status of panels if one is pre-opened on mount
+  useEffect(() => {
+    if (initialIndex !== -1) {
+      setIsLoaded(true);
+      setLoadedPanels([true, true, true, true]);
+    }
+  }, [initialIndex]);
+
   // Preloader and staggered captions fly-in sequence
   useEffect(() => {
+    if (initialIndex !== -1) return;
     const timer = setTimeout(() => {
       setIsLoaded(true);
 
@@ -82,6 +99,36 @@ export default function PageContainer() {
     }, 600);
 
     return () => clearTimeout(timer);
+  }, [initialIndex]);
+
+  const changeTab = (tabIndex) => {
+    setActiveTab(tabIndex);
+    if (typeof window !== 'undefined') {
+      if (tabIndex === null) {
+        window.history.pushState(null, '', '/');
+      } else {
+        const path = tabPaths[tabIndex];
+        window.history.pushState(null, '', `/${path}/`);
+      }
+    }
+  };
+
+  // Browser Back/Forward buttons navigation listener
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handlePopState = () => {
+      const path = window.location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
+      const index = tabPaths.indexOf(path);
+      if (index !== -1) {
+        setActiveTab(index);
+      } else {
+        setActiveTab(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const handlePanelScroll = (e) => {
@@ -93,7 +140,7 @@ export default function PageContainer() {
   const handleClose = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setActiveTab(null);
+    changeTab(null);
     setScrollOpacity(1);
   };
 
@@ -196,7 +243,7 @@ export default function PageContainer() {
           return (
             <section
               key={panel.id}
-              onClick={() => !isAnyActive && setActiveTab(panel.id)}
+              onClick={() => !isAnyActive && changeTab(panel.id)}
               className={`group/panel ${positionStyleClass} ${panel.bgColorClass} ${!isAnyActive ? 'cursor-pointer' : ''}`}
             >
               {/* Parallax background image */}
