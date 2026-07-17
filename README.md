@@ -19,7 +19,7 @@ The base image has `msmtp` pre-installed. To configure the system to send emails
 | `SMTP_PORT` | SMTP server port (usually `587` for TLS or `465` for SSL; defaults to `587`). |
 | `SMTP_FROM` | The sender address (e.g. `noreply@yourdomain.com`). |
 | `SMTP_USER` | SMTP authentication username. |
-| `SMTP_PASS` | SMTP authentication password. |
+| `SMTP_PASSWORD` | SMTP authentication password. |
 | `SMTP_TLS` | Enable TLS (set to `on` or `off`; default is `on`). |
 | `SMTP_AUTH` | Enable SMTP authentication (set to `on` or `off`; default is `on`). |
 
