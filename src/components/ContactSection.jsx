@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaPhone, FaPaperPlane, FaLinkedinIn, FaGithub } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaPaperPlane, FaLinkedinIn, FaGithub, FaWhatsapp } from 'react-icons/fa';
 import MapComponent from './MapComponent';
 import Footer from './Footer';
 
@@ -192,7 +192,7 @@ export default function ContactSection() {
                 {/* Location */}
                 <li className="flex flex-col items-center justify-center md:border-r md:border-[#f3f3f3]/30 px-4">
                   <FaMapMarkerAlt className="w-8 h-8 text-white opacity-90 mb-3" />
-                  <h4 className="text-[#f3f3f3] font-sans text-[13px] font-bold uppercase tracking-widest mt-1.5 leading-snug">
+                  <h4 className="text-[#f3f3f3] !font-sans text-[13px] font-bold uppercase tracking-widest mt-1.5 leading-snug">
                     Lima, Peru
                   </h4>
                 </li>
@@ -200,7 +200,7 @@ export default function ContactSection() {
                 {/* Phone */}
                 <li className="flex flex-col items-center justify-center md:border-r md:border-[#f3f3f3]/30 px-4">
                   <FaPhone className="w-8 h-8 text-white opacity-90 mb-3" />
-                  <h4 className="text-[#f3f3f3] font-sans text-[13px] font-bold uppercase tracking-widest mt-1.5 leading-snug">
+                  <h4 className="text-[#f3f3f3] !font-sans text-[13px] font-bold uppercase tracking-widest mt-1.5 leading-snug">
                     +51 989 953 522
                   </h4>
                 </li>
@@ -208,7 +208,7 @@ export default function ContactSection() {
                 {/* Email */}
                 <li className="flex flex-col items-center justify-center px-4">
                   <FaPaperPlane className="w-8 h-8 text-white opacity-90 mb-3" />
-                  <h4 className="text-[#f3f3f3] font-sans text-[13px] font-bold uppercase tracking-widest mt-1.5 leading-snug">
+                  <h4 className="text-[#f3f3f3] !font-sans text-[13px] font-bold uppercase tracking-widest mt-1.5 leading-snug">
                     juan@timana.net
                   </h4>
                 </li>
@@ -238,6 +238,17 @@ export default function ContactSection() {
                     aria-label="GitHub Profile"
                   >
                     <FaGithub className="w-5 h-5" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://wa.me/51989953522"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-[50px] h-[50px] rounded-full bg-white flex items-center justify-center text-[#fe7c60] hover:!text-[#fe7c60] hover:scale-105 transition-all duration-300 shadow-sm"
+                    aria-label="WhatsApp Contact"
+                  >
+                    <FaWhatsapp className="w-5 h-5" />
                   </a>
                 </li>
               </ul>
