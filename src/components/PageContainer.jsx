@@ -5,49 +5,6 @@ import ResumeSection from './ResumeSection';
 import PortfolioSection from './PortfolioSection';
 import ContactSection from './ContactSection';
 
-const panels = [
-  {
-    id: 0,
-    title: 'Profile',
-    menuDesc: 'A Brief About Me...',
-    icon: FaUser,
-    bgColorClass: 'bg-brand-profile',
-    bgSmall: '/img/img-1-small.jpg',
-    bgLarge: '/img/img-1-large.jpg',
-    Component: ProfileSection
-  },
-  {
-    id: 1,
-    title: 'Resume',
-    menuDesc: 'My Academic Qualifications...',
-    icon: FaFileAlt,
-    bgColorClass: 'bg-brand-resume',
-    bgSmall: '/img/img-2-small.jpg',
-    bgLarge: '/img/img-2-large.jpg',
-    Component: ResumeSection
-  },
-  {
-    id: 2,
-    title: 'Portfolio',
-    menuDesc: 'Some of My Work...',
-    icon: FaBriefcase,
-    bgColorClass: 'bg-brand-portfolio',
-    bgSmall: '/img/img-3-small.jpg',
-    bgLarge: '/img/img-3-large.jpg',
-    Component: PortfolioSection
-  },
-  {
-    id: 3,
-    title: 'Contact',
-    menuDesc: 'Ways to Reach Me...',
-    icon: FaPaperPlane,
-    bgColorClass: 'bg-brand-contact',
-    bgSmall: '/img/img-4-small.jpg',
-    bgLarge: '/img/img-4-large.jpg',
-    Component: ContactSection
-  }
-];
-
 const tabPaths = ['profile', 'resume', 'portfolio', 'contact'];
 
 export default function PageContainer({
@@ -58,14 +15,65 @@ export default function PageContainer({
   employment = [],
   testimonials = [],
   skills = [],
-  recognition = []
+  recognition = [],
+  meImage,
+  funBgImage,
+  bg2Image,
+  bg4Image,
+  panelImages
 }) {
+  const panels = [
+    {
+      id: 0,
+      title: 'Profile',
+      menuDesc: 'A Brief About Me...',
+      icon: FaUser,
+      bgColorClass: 'bg-brand-profile',
+      bgSmall: panelImages?.profile?.small || '/img/img-1-small.jpg',
+      bgLarge: panelImages?.profile?.large || '/img/img-1-large.jpg',
+      Component: ProfileSection
+    },
+    {
+      id: 1,
+      title: 'Resume',
+      menuDesc: 'My Academic Qualifications...',
+      icon: FaFileAlt,
+      bgColorClass: 'bg-brand-resume',
+      bgSmall: panelImages?.resume?.small || '/img/img-2-small.jpg',
+      bgLarge: panelImages?.resume?.large || '/img/img-2-large.jpg',
+      Component: ResumeSection
+    },
+    {
+      id: 2,
+      title: 'Portfolio',
+      menuDesc: 'Some of My Work...',
+      icon: FaBriefcase,
+      bgColorClass: 'bg-brand-portfolio',
+      bgSmall: panelImages?.portfolio?.small || '/img/img-3-small.jpg',
+      bgLarge: panelImages?.portfolio?.large || '/img/img-3-large.jpg',
+      Component: PortfolioSection
+    },
+    {
+      id: 3,
+      title: 'Contact',
+      menuDesc: 'Ways to Reach Me...',
+      icon: FaPaperPlane,
+      bgColorClass: 'bg-brand-contact',
+      bgSmall: panelImages?.contact?.small || '/img/img-4-small.jpg',
+      bgLarge: panelImages?.contact?.large || '/img/img-4-large.jpg',
+      Component: ContactSection
+    }
+  ];
+
   const getPanelProps = (component) => {
     if (component === ResumeSection) {
-      return { education, employment, skills, recognition };
+      return { education, employment, skills, recognition, bg2Image };
     }
     if (component === PortfolioSection) {
-      return { projectCategories, projects, testimonials };
+      return { projectCategories, projects, testimonials, funBgImage };
+    }
+    if (component === ProfileSection) {
+      return { meImage, bg4Image, funBgImage };
     }
     return {};
   };

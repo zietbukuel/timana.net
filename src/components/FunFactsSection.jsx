@@ -1,11 +1,11 @@
 import React from 'react';
 import { FaGamepad, FaCar } from 'react-icons/fa';
 
-export default function FunFactsSection() {
+export default function FunFactsSection({ funBgImage }) {
   return (
     <section
       className="w-full py-4 px-2 md:py-10 md:px-5 bg-cover bg-center overflow-hidden flex justify-center fun-facts"
-      style={{ backgroundImage: "url('/img/fun-bg.jpg')" }}
+      style={{ backgroundImage: `url(${funBgImage || '/img/fun-bg.jpg'})` }}
     >
       <ul className="flex justify-between w-full md:w-10/12 max-w-6xl list-none p-0 m-0">
         <li className="w-[20%] text-center text-white py-2 border-r-2 border-white my-8 flex flex-col justify-center items-center">

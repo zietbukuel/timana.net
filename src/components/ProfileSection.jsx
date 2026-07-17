@@ -3,7 +3,7 @@ import { FaDrupal, FaWordpress, FaHtml5, FaCode, FaFileAlt } from 'react-icons/f
 import FunFactsSection from './FunFactsSection';
 import Footer from './Footer';
 
-export default function ProfileSection() {
+export default function ProfileSection({ meImage, bg4Image, funBgImage }) {
   return (
     <div className="w-full text-[#3f538e] select-text">
       {/* 1. About Me Block (f2f2f2 background on profile-image, bg-4.jpg background on bio) */}
@@ -12,7 +12,7 @@ export default function ProfileSection() {
         <div className="w-full md:w-1/2 flex flex-col justify-center items-start px-8 py-10 md:pl-[8.33%] z-10">
           <div className="mb-4 p-2.5 w-[150px] pp-container">
             <img
-              src="/img/me.jpg"
+              src={meImage || "/img/me.jpg"}
               alt="Juan Timaná"
               className="w-full h-auto rounded-full border-[5px] border-[#E8E8E8] shadow-[0_0_0_10px_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_0_0_12px_rgba(0,0,0,0.1)]"
             />
@@ -29,7 +29,7 @@ export default function ProfileSection() {
         {/* Right Column: Bio text with bg-4.jpg background and 65% white overlay */}
         <div
           className="w-full md:w-1/2 relative min-h-[850px] md:min-h-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/img/bg-4.jpg')" }}
+          style={{ backgroundImage: `url(${bg4Image || '/img/bg-4.jpg'})` }}
         >
           {/* Overlay color layer */}
           <div className="absolute inset-0 bg-white/65 z-0" />
@@ -183,7 +183,7 @@ export default function ProfileSection() {
       </section>
 
       {/* 3. Fun Facts Section (parallax fun-bg.jpg background, inline-block items) */}
-      <FunFactsSection />
+      <FunFactsSection funBgImage={funBgImage} />
 
       {/* 4. Footer */}
       <Footer />

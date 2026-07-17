@@ -3,7 +3,7 @@ import { FaMicrophone } from 'react-icons/fa';
 import Footer from './Footer';
 import SkillCircle from './SkillCircle';
 
-export default function ResumeSection({ skills = [], education = [], employment = [], recognition = [] }) {
+export default function ResumeSection({ skills = [], education = [], employment = [], recognition = [], bg2Image }) {
 
 
   return (
@@ -99,7 +99,7 @@ export default function ResumeSection({ skills = [], education = [], employment 
         {/* Left Column (rec-desc) */}
         <div
           className="w-full md:w-1/2 relative bg-cover bg-center overflow-hidden flex flex-col justify-center px-8 md:px-20 py-16"
-          style={{ backgroundImage: "url('/img/bg-2.jpg')" }}
+          style={{ backgroundImage: `url(${bg2Image || '/img/bg-2.jpg'})` }}
         >
           {/* Overlay to dim background */}
           <div className="absolute inset-0 bg-black/70 z-0" />

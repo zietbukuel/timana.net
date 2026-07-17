@@ -5,7 +5,7 @@ import FunFactsSection from './FunFactsSection';
 import Footer from './Footer';
 import PortfolioFilters from './PortfolioFilters';
 
-export default function PortfolioSection({ projectCategories = [], projects = [], testimonials = [] }) {
+export default function PortfolioSection({ projectCategories = [], projects = [], testimonials = [], funBgImage }) {
   const [filter, setFilter] = useState('all');
   const [displayedFilter, setDisplayedFilter] = useState('all');
   const [activeProject, setActiveProject] = useState(null);
@@ -97,7 +97,7 @@ export default function PortfolioSection({ projectCategories = [], projects = []
       </section>
 
       {/* 3. Fun Facts Section */}
-      <FunFactsSection />
+      <FunFactsSection funBgImage={funBgImage} />
 
       {/* 4. Footer */}
       <Footer />

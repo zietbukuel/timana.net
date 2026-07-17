@@ -10,16 +10,16 @@ const projectCategories = defineCollection({
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.json', base: './src/content/projects' }),
-  schema: z.object({
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/projects' }),
+  schema: ({ image }) => z.object({
     id: z.number(),
     categories: z.array(z.string()),
     part1: z.string(),
     part2: z.string(),
     isPart1Bold: z.boolean(),
     subtitle: z.string(),
-    thumb: z.string(),
-    large: z.string(),
+    thumb: image(),
+    large: image(),
     desc: z.string(),
     tech: z.string().nullable().optional(),
     url: z.string().nullable().optional(),

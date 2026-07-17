@@ -1,7 +1,23 @@
 ---
-import '../styles/global.css';
-import PageContainer from '../components/PageContainer';
-import { getCollection } from 'astro:content';
+import "../styles/global.css";
+import PageContainer from "../components/PageContainer";
+import { getCollection } from "astro:content";
+
+// Import local photos for optimization
+import meImage from '../assets/img/me.jpg';
+import funBgImage from '../assets/img/fun-bg.jpg';
+import bg2Image from '../assets/img/bg-2.jpg';
+import bg4Image from '../assets/img/bg-4.jpg';
+
+// Import Parallax Backgrounds
+import img1Small from '../assets/img/img-1-small.jpg';
+import img1Large from '../assets/img/img-1-large.jpg';
+import img2Small from '../assets/img/img-2-small.jpg';
+import img2Large from '../assets/img/img-2-large.jpg';
+import img3Small from '../assets/img/img-3-small.jpg';
+import img3Large from '../assets/img/img-3-large.jpg';
+import img4Small from '../assets/img/img-4-small.jpg';
+import img4Large from '../assets/img/img-4-large.jpg';
 
 interface Props {
   initialActivePanel?: string | null;
@@ -10,28 +26,44 @@ interface Props {
 const { initialActivePanel = null } = Astro.props;
 
 // Generate canonical URL with trailing slash
-const cleanPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const cleanPath = Astro.url.pathname.endsWith("/")
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
 const canonicalURL = new URL(cleanPath, Astro.site);
 
-const siteURL = Astro.site ? Astro.site.href : 'https://timana.net/';
-const profileImageURL = new URL('/img/me.jpg', siteURL).href;
+const siteURL = Astro.site ? Astro.site.href : "https://timana.net/";
+const profileImageURL = new URL("/img/me.jpg", siteURL).href;
 
 // Retrieve all collections
-const projectCategoriesRaw = await getCollection('projectCategories');
-const projectsRaw = await getCollection('projects');
-const educationRaw = await getCollection('education');
-const employmentRaw = await getCollection('employment');
-const testimonialsRaw = await getCollection('testimonials');
-const skillsRaw = await getCollection('skills');
-const recognitionRaw = await getCollection('recognition');
+const projectCategoriesRaw = await getCollection("projectCategories");
+const projectsRaw = await getCollection("projects");
+const educationRaw = await getCollection("education");
+const employmentRaw = await getCollection("employment");
+const testimonialsRaw = await getCollection("testimonials");
+const skillsRaw = await getCollection("skills");
+const recognitionRaw = await getCollection("recognition");
 
-const projectCategories = projectCategoriesRaw.map(c => c.data);
-const projects = projectsRaw.map(p => p.data).sort((a, b) => a.order - b.order);
-const education = educationRaw.map(e => e.data).sort((a, b) => a.order - b.order);
-const employment = employmentRaw.map(e => e.data).sort((a, b) => a.order - b.order);
-const testimonials = testimonialsRaw.map(t => t.data).sort((a, b) => a.order - b.order);
-const skills = skillsRaw.map(s => s.data).sort((a, b) => a.order - b.order);
-const recognition = recognitionRaw.map(r => r.data).sort((a, b) => a.order - b.order);
+const projectCategories = projectCategoriesRaw.map((c) => c.data);
+const projects = projectsRaw
+  .map((p) => ({
+    ...p.data,
+    thumb: p.data.thumb.src,
+    large: p.data.large.src
+  }))
+  .sort((a, b) => a.order - b.order);
+const education = educationRaw
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
+const employment = employmentRaw
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
+const testimonials = testimonialsRaw
+  .map((t) => t.data)
+  .sort((a, b) => a.order - b.order);
+const skills = skillsRaw.map((s) => s.data).sort((a, b) => a.order - b.order);
+const recognition = recognitionRaw
+  .map((r) => r.data)
+  .sort((a, b) => a.order - b.order);
 ---
 
 <!doctype html>
@@ -39,88 +71,113 @@ const recognition = recognitionRaw.map(r => r.data).sort((a, b) => a.order - b.o
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>Juan Timaná | Senior Full Stack Web Developer & Systems Engineer</title>
-    
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>
+      Juan Timaná | Senior Full Stack Web Developer & Systems Engineer
+    </title>
+
     <!-- Canonical Link -->
     <link rel="canonical" href={canonicalURL.href} />
 
     <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Person",
-          "@id": `${siteURL}#person`,
-          "name": "Juan Timaná",
-          "jobTitle": "Senior Full Stack Web Developer & Systems Engineer",
-          "url": siteURL,
-          "image": profileImageURL,
-          "description": "Seasoned full-stack engineer specializing in Laravel, Drupal, WordPress module engineering, server provisioning, and high-performance automated pipelines.",
-          "sameAs": [
-            "https://linkedin.com/in/juantimana",
-            "https://github.com/zietbukuel"
-          ],
-          "knowsAbout": [
-            "Software Engineering",
-            "Full Stack Web Development",
-            "Systems Engineering",
-            "Laravel",
-            "Drupal",
-            "WordPress",
-            "DevOps",
-            "Server Infrastructure",
-            "React",
-            "JavaScript",
-            "PHP"
-          ],
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Lima",
-            "addressCountry": "PE"
-          }
-        },
-        {
-          "@type": "WebSite",
-          "@id": `${siteURL}#website`,
-          "url": siteURL,
-          "name": "Juan Timaná | Senior Full Stack Web Developer & Systems Engineer",
-          "publisher": {
-            "@id": `${siteURL}#person`
-          }
-        }
-      ]
-    })} />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": `${siteURL}#person`,
+            name: "Juan Timaná",
+            jobTitle: "Senior Full Stack Web Developer & Systems Engineer",
+            url: siteURL,
+            image: profileImageURL,
+            description:
+              "Seasoned full-stack engineer specializing in Laravel, Drupal, WordPress module engineering, server provisioning, and high-performance automated pipelines.",
+            sameAs: [
+              "https://linkedin.com/in/juantimana",
+              "https://github.com/zietbukuel",
+            ],
+            knowsAbout: [
+              "Software Engineering",
+              "Full Stack Web Development",
+              "Systems Engineering",
+              "Laravel",
+              "Drupal",
+              "WordPress",
+              "DevOps",
+              "Server Infrastructure",
+              "React",
+              "JavaScript",
+              "PHP",
+            ],
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Lima",
+              addressCountry: "PE",
+            },
+          },
+          {
+            "@type": "WebSite",
+            "@id": `${siteURL}#website`,
+            url: siteURL,
+            name: "Juan Timaná | Senior Full Stack Web Developer & Systems Engineer",
+            publisher: {
+              "@id": `${siteURL}#person`,
+            },
+          },
+        ],
+      })}
+    />
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Juan Timaná is a Senior Full Stack Web Developer & Systems Engineer with over a decade of experience building reliable web applications, managing backend logic (Laravel, Drupal, WordPress), and server infrastructure provisioning." />
-    <meta name="keywords" content="Juan Timaná, Full Stack Developer, Systems Engineer, Laravel, Drupal, WordPress, Devops, Lima Peru, Web Architect" />
+    <meta
+      name="description"
+      content="Juan Timaná is a Senior Full Stack Web Developer & Systems Engineer with over a decade of experience building reliable web applications, managing backend logic (Laravel, Drupal, WordPress), and server infrastructure provisioning."
+    />
+    <meta
+      name="keywords"
+      content="Juan Timaná, Full Stack Developer, Systems Engineer, Laravel, Drupal, WordPress, Devops, Lima Peru, Web Architect"
+    />
     <meta name="author" content="Juan Timaná" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Juan Timaná | Senior Full Stack Web Developer & Systems Engineer" />
-    <meta property="og:description" content="Seasoned full-stack engineer specializing in Laravel, Drupal, WordPress module engineering, server provisioning, and high-performance automated pipelines." />
+    <meta
+      property="og:title"
+      content="Juan Timaná | Senior Full Stack Web Developer & Systems Engineer"
+    />
+    <meta
+      property="og:description"
+      content="Seasoned full-stack engineer specializing in Laravel, Drupal, WordPress module engineering, server provisioning, and high-performance automated pipelines."
+    />
     <meta property="og:image" content="/img/me.jpg" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="Juan Timaná | Senior Full Stack Web Developer & Systems Engineer" />
-    <meta property="twitter:description" content="Seasoned full-stack engineer specializing in Laravel, Drupal, WordPress module engineering, server provisioning, and high-performance automated pipelines." />
+    <meta
+      property="twitter:title"
+      content="Juan Timaná | Senior Full Stack Web Developer & Systems Engineer"
+    />
+    <meta
+      property="twitter:description"
+      content="Seasoned full-stack engineer specializing in Laravel, Drupal, WordPress module engineering, server provisioning, and high-performance automated pipelines."
+    />
     <meta property="twitter:image" content="/img/me.jpg" />
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700|Merriweather:400italic,400" rel="stylesheet" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/img/favicon.png" />
     <link rel="shortcut icon" href="/img/favicon.png" />
   </head>
   <body>
-    <h1 class="sr-only">Juan Timaná | Senior Full Stack Web Developer & Systems Engineer Portfolio</h1>
+    <h1 class="sr-only">
+      Juan Timaná | Senior Full Stack Web Developer & Systems Engineer Portfolio
+    </h1>
     <main>
       <PageContainer 
         initialActivePanel={initialActivePanel} 
@@ -131,6 +188,16 @@ const recognition = recognitionRaw.map(r => r.data).sort((a, b) => a.order - b.o
         testimonials={testimonials}
         skills={skills}
         recognition={recognition}
+        meImage={meImage.src}
+        funBgImage={funBgImage.src}
+        bg2Image={bg2Image.src}
+        bg4Image={bg4Image.src}
+        panelImages={{
+          profile: { small: img1Small.src, large: img1Large.src },
+          resume: { small: img2Small.src, large: img2Large.src },
+          portfolio: { small: img3Small.src, large: img3Large.src },
+          contact: { small: img4Small.src, large: img4Large.src }
+        }}
         client:load 
       />
     </main>
