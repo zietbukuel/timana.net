@@ -1,23 +1,23 @@
 ---
 import "../styles/global.css";
 import PageContainer from "../components/PageContainer";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 // Import local photos for optimization
-import meImage from '../assets/img/me.jpg';
-import funBgImage from '../assets/img/fun-bg.jpg';
-import bg2Image from '../assets/img/bg-2.jpg';
-import bg4Image from '../assets/img/bg-4.jpg';
+import meImage from "../assets/img/me.jpg";
+import funBgImage from "../assets/img/fun-bg.jpg";
+import bg2Image from "../assets/img/bg-2.jpg";
+import bg4Image from "../assets/img/bg-4.jpg";
 
 // Import Parallax Backgrounds
-import img1Small from '../assets/img/img-1-small.jpg';
-import img1Large from '../assets/img/img-1-large.jpg';
-import img2Small from '../assets/img/img-2-small.jpg';
-import img2Large from '../assets/img/img-2-large.jpg';
-import img3Small from '../assets/img/img-3-small.jpg';
-import img3Large from '../assets/img/img-3-large.jpg';
-import img4Small from '../assets/img/img-4-small.jpg';
-import img4Large from '../assets/img/img-4-large.jpg';
+import img1Small from "../assets/img/img-1-small.jpg";
+import img1Large from "../assets/img/img-1-large.jpg";
+import img2Small from "../assets/img/img-2-small.jpg";
+import img2Large from "../assets/img/img-2-large.jpg";
+import img3Small from "../assets/img/img-3-small.jpg";
+import img3Large from "../assets/img/img-3-large.jpg";
+import img4Small from "../assets/img/img-4-small.jpg";
+import img4Large from "../assets/img/img-4-large.jpg";
 
 interface Props {
   initialActivePanel?: string | null;
@@ -43,53 +43,104 @@ const testimonialsRaw = await getCollection("testimonials");
 const skillsRaw = await getCollection("skills");
 const recognitionRaw = await getCollection("recognition");
 
-import { getImage } from 'astro:assets';
+import { getImage } from "astro:assets";
 
 // Optimize and convert base images to WebP
-const optimizedMe = await getImage({ src: meImage, format: 'webp' });
-const optimizedFunBg = await getImage({ src: funBgImage, format: 'webp' });
-const optimizedBg2 = await getImage({ src: bg2Image, format: 'webp' });
-const optimizedBg4 = await getImage({ src: bg4Image, format: 'webp' });
+const optimizedMe = await getImage({ src: meImage, format: "webp" });
+const optimizedFunBg = await getImage({ src: funBgImage, format: "webp" });
+const optimizedBg2 = await getImage({ src: bg2Image, format: "webp" });
+const optimizedBg4 = await getImage({ src: bg4Image, format: "webp" });
 
 // Optimize and convert Parallax images to WebP (limit small versions to 640px wide)
-const optImg1Small = await getImage({ src: img1Small, format: 'webp', width: 640 });
-const optImg1Large = await getImage({ src: img1Large, format: 'webp' });
-const optImg2Small = await getImage({ src: img2Small, format: 'webp', width: 640 });
-const optImg2Large = await getImage({ src: img2Large, format: 'webp' });
-const optImg3Small = await getImage({ src: img3Small, format: 'webp', width: 640 });
-const optImg3Large = await getImage({ src: img3Large, format: 'webp' });
-const optImg4Small = await getImage({ src: img4Small, format: 'webp', width: 640 });
-const optImg4Large = await getImage({ src: img4Large, format: 'webp' });
+const optImg1Small = await getImage({
+  src: img1Small,
+  format: "webp",
+  width: 640,
+});
+const optImg1Large = await getImage({ src: img1Large, format: "webp" });
+const optImg2Small = await getImage({
+  src: img2Small,
+  format: "webp",
+  width: 640,
+});
+const optImg2Large = await getImage({ src: img2Large, format: "webp" });
+const optImg3Small = await getImage({
+  src: img3Small,
+  format: "webp",
+  width: 640,
+});
+const optImg3Large = await getImage({ src: img3Large, format: "webp" });
+const optImg4Small = await getImage({
+  src: img4Small,
+  format: "webp",
+  width: 640,
+});
+const optImg4Large = await getImage({ src: img4Large, format: "webp" });
 
 const projectCategories = projectCategoriesRaw.map((c) => c.data);
 
 // Optimize project images to WebP dynamically
 const projects = await Promise.all(
   projectsRaw.map(async (p) => {
-    const optimizedThumb = await getImage({ src: p.data.thumb, format: 'webp', width: 600 });
-    const optimizedLarge = await getImage({ src: p.data.large, format: 'webp' });
+    const optimizedThumb = await getImage({
+      src: p.data.thumb,
+      format: "webp",
+      width: 600,
+    });
+    const optimizedLarge = await getImage({
+      src: p.data.large,
+      format: "webp",
+    });
     return {
       ...p.data,
       thumb: optimizedThumb.src,
-      large: optimizedLarge.src
+      large: optimizedLarge.src,
     };
-  })
+  }),
 );
 projects.sort((a, b) => a.order - b.order);
 
 const education = educationRaw
   .map((e) => e.data)
   .sort((a, b) => a.order - b.order);
-const employment = employmentRaw
-  .map((e) => e.data)
-  .sort((a, b) => a.order - b.order);
-const testimonials = testimonialsRaw
-  .map((t) => t.data)
-  .sort((a, b) => a.order - b.order);
+
+const employment = await Promise.all(
+  employmentRaw.map(async (e) => {
+    const { html } = await render(e);
+    return {
+      ...e.data,
+      descriptionHtml: html || e.body || e.data.description || "",
+      description: e.body?.trim() || e.data.description || "",
+    };
+  }),
+);
+employment.sort((a, b) => a.order - b.order);
+
+const testimonials = await Promise.all(
+  testimonialsRaw.map(async (t) => {
+    const { html } = await render(t);
+    return {
+      ...t.data,
+      quoteHtml: html || t.body || t.data.quote || "",
+      quote: t.body?.trim() || t.data.quote || "",
+    };
+  }),
+);
+testimonials.sort((a, b) => a.order - b.order);
+
 const skills = skillsRaw.map((s) => s.data).sort((a, b) => a.order - b.order);
-const recognition = recognitionRaw
-  .map((r) => r.data)
-  .sort((a, b) => a.order - b.order);
+
+const recognition = await Promise.all(
+  recognitionRaw.map(async (r) => {
+    const { html } = await render(r);
+    return {
+      ...r.data,
+      descriptionHtml: html || r.body || r.data.description || "",
+      description: r.body?.trim() || r.data.description || "",
+    };
+  }),
+);
+recognition.sort((a, b) => a.order - b.order);
 ---
 
 <!doctype html>
@@ -132,10 +183,10 @@ const recognition = recognitionRaw
               "Software Engineering",
               "Full Stack Web Development",
               "Systems Engineering",
-              "Laravel",
-              "Drupal",
               "WordPress",
-              "DevOps",
+              "Drupal",
+              "Laravel",
+              "Linux",
               "Server Infrastructure",
               "React",
               "JavaScript",
@@ -205,8 +256,8 @@ const recognition = recognitionRaw
       Juan Timaná | Senior Full Stack Web Developer & Systems Engineer Portfolio
     </h1>
     <main>
-      <PageContainer 
-        initialActivePanel={initialActivePanel} 
+      <PageContainer
+        initialActivePanel={initialActivePanel}
         projectCategories={projectCategories}
         projects={projects}
         education={education}
@@ -222,9 +273,9 @@ const recognition = recognitionRaw
           profile: { small: optImg1Small.src, large: optImg1Large.src },
           resume: { small: optImg2Small.src, large: optImg2Large.src },
           portfolio: { small: optImg3Small.src, large: optImg3Large.src },
-          contact: { small: optImg4Small.src, large: optImg4Large.src }
+          contact: { small: optImg4Small.src, large: optImg4Large.src },
         }}
-        client:load 
+        client:load
       />
     </main>
   </body>

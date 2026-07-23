@@ -40,20 +40,20 @@ const education = defineCollection({
 });
 
 const employment = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.json', base: './src/content/employment' }),
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/employment' }),
   schema: z.object({
     company: z.string(),
     role: z.string(),
     period: z.string(),
-    description: z.string(),
+    description: z.string().optional(),
     order: z.number()
   })
 });
 
 const testimonials = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.json', base: './src/content/testimonials' }),
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/testimonials' }),
   schema: z.object({
-    quote: z.string(),
+    quote: z.string().optional(),
     author: z.string(),
     order: z.number()
   })
@@ -69,12 +69,12 @@ const skills = defineCollection({
 });
 
 const recognition = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.json', base: './src/content/recognition' }),
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/recognition' }),
   schema: z.object({
     title: z.string(),
     role: z.string(),
     location: z.string(),
-    description: z.string(),
+    description: z.string().optional(),
     order: z.number()
   })
 });

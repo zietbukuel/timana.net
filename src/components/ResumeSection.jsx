@@ -62,9 +62,16 @@ export default function ResumeSection({ skills = [], education = [], employment 
                   <span className="text-[#0ed4c8] text-[13px] tracking-wider block mb-2">
                     {emp.period}
                   </span>
-                  <p className="text-[#838c95] font-sans text-sm leading-[24px]">
-                    {emp.description}
-                  </p>
+                  {emp.descriptionHtml ? (
+                    <div
+                      className="text-[#838c95] font-sans text-sm leading-[24px] [&_p]:mb-2 [&_a]:text-[#0ed4c8] [&_a]:underline"
+                      dangerouslySetInnerHTML={{ __html: emp.descriptionHtml }}
+                    />
+                  ) : (
+                    <p className="text-[#838c95] font-sans text-sm leading-[24px]">
+                      {emp.description}
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>
@@ -130,9 +137,16 @@ export default function ResumeSection({ skills = [], education = [], employment 
                   <h4 className="text-[#838c95] font-serif text-sm">
                     {rec.location}
                   </h4>
-                  <p className="font-sans text-sm leading-[24px]">
-                    {rec.description}
-                  </p>
+                  {rec.descriptionHtml ? (
+                    <div
+                      className="font-sans text-sm leading-[24px] [&_p]:mb-2 [&_a]:text-[#0ed4c8] [&_a]:underline"
+                      dangerouslySetInnerHTML={{ __html: rec.descriptionHtml }}
+                    />
+                  ) : (
+                    <p className="font-sans text-sm leading-[24px]">
+                      {rec.description}
+                    </p>
+                  )}
                 </div>
               </li>
             ))}

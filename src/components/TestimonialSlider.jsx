@@ -103,9 +103,16 @@ export default function TestimonialSlider({ testimonials = [] }) {
                 : 'opacity-0 translate-y-4 absolute pointer-events-none'
                 }`}
             >
-              <blockquote className="text-[#3f3f46] text-base md:text-lg italic font-serif leading-relaxed max-w-2xl text-center mb-6 pointer-events-none">
-                "{item.quote}"
-              </blockquote>
+              {item.quoteHtml ? (
+                <blockquote
+                  className="text-[#3f3f46] text-base md:text-lg italic font-serif leading-relaxed max-w-2xl text-center mb-6 pointer-events-none [&_p]:m-0"
+                  dangerouslySetInnerHTML={{ __html: item.quoteHtml }}
+                />
+              ) : (
+                <blockquote className="text-[#3f3f46] text-base md:text-lg italic font-serif leading-relaxed max-w-2xl text-center mb-6 pointer-events-none">
+                  "{item.quote}"
+                </blockquote>
+              )}
               <cite className="text-[#3f3f46] font-bold not-italic uppercase tracking-widest text-sm md:text-base pointer-events-none">
                 — {item.author}
               </cite>
