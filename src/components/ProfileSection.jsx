@@ -46,8 +46,8 @@ export default function ProfileSection({ meImage, bg4Image, funBgImage }) {
             </p>
             <p>
               My specialty is creating software solutions that don't just look good—they work hard
-              for your business operations. With deep expertise across frameworks like Laravel,
-              Drupal, and WordPress, I handle projects with a focus on stability and performance.
+              for your business operations. With deep expertise across frameworks like WordPress,
+              Drupal, and Laravel, I handle projects with a focus on stability and performance.
               Whether you need an optimized custom application layout from scratch, a secure API
               integration, or specialized functionality that off-the-shelf tools can't provide,
               I've got you covered.
@@ -61,8 +61,8 @@ export default function ProfileSection({ meImage, bg4Image, funBgImage }) {
             </p>
             <p className="font-bold text-gray-800">My technical toolkit includes:</p>
             <ul className="pl-6 space-y-2 list-disc text-[#4c4c50]">
-              <li>Custom backend logic and framework development (Laravel, PHP, JavaScript)</li>
-              <li>Advanced module, plugin, and theme engineering for Drupal and WordPress</li>
+              <li>Custom backend logic and framework development (WordPress, Drupal, Laravel, PHP, JavaScript)</li>
+              <li>Advanced module, plugin, and theme engineering for WordPress and Drupal</li>
               <li>Server provisioning, environment orchestration, and automated deployment pipelines</li>
               <li>Modern frontend development with clean, responsive layouts and standards-compliant code</li>
             </ul>
